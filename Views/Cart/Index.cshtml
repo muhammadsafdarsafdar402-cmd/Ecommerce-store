@@ -1,0 +1,31 @@
+@model CartViewModel
+@{ ViewData["Title"] = "Your cart"; }
+<h2>Your cart</h2>
+@if (!Model.Rows.Any())
+{
+  <p>Your cart is empty. <a asp-controller="Products" asp-action="Index">Continue shopping</a></p>
+}
+else
+{
+  <table class="table align-middle">
+    <thead><tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var r in Model.Rows)
+    {
+      <tr>
+        <td>@r.Name</td>
+        <td>Rs. @r.Price.ToString("N0")</td>
+        <td>@r.Quantity</td>
+        <td>Rs. @((r.Price * r.Quantity).ToString("N0"))</td>
+        <td>
+          <form asp-action="Remove" asp-route-id="@r.ProductId" method="post">
+            <button class="btn btn-sm btn-outline-danger">Remove</button>
+          </form>
+        </td>
+      </tr>
+    }
+    </tbody>
+  </table>
+  <h4 class="text-end">Total: Rs. @Model.Total.ToString("N0")</h4>
+  <div class="text-end"><a class="btn btn-dark" asp-action="Checkout">Checkout</a></div>
+}

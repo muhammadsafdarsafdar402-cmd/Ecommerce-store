@@ -1,0 +1,19 @@
+@model Product
+@{ ViewData["Title"] = Model.Name; }
+<a asp-action="Index">&larr; Back to products</a>
+<div class="row mt-3 g-4">
+  <div class="col-md-5"><div class="ph big">@Model.Name[0]</div></div>
+  <div class="col-md-7">
+    <h2>@Model.Name</h2>
+    <p class="text-muted">@Model.Category</p>
+    <h4>Rs. @Model.Price.ToString("N0")</h4>
+    <p>@Model.Description</p>
+    <p>@(Model.Stock > 0 ? $"In stock: {Model.Stock}" : "Out of stock")</p>
+    @if (Model.Stock > 0)
+    {
+      <form asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id" method="post">
+        <button class="btn btn-dark">Add to cart</button>
+      </form>
+    }
+  </div>
+</div>

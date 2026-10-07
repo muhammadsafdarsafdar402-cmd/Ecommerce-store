@@ -1,0 +1,5 @@
+@model Order
+@{ ViewData["Title"] = "Order placed"; }
+<h2>Thank you, @Model.CustomerName!</h2>
+<p>Your order number is <strong>#@Model.Id</strong>. Total: Rs. @Model.Total.ToString("N0")</p>
+<a class="btn btn-dark" asp-controller="Products" asp-action="Index">Continue shopping</a>
